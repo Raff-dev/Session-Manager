@@ -31,7 +31,7 @@ class SessionManager:
 
     def get_session(self) -> str | None:
         with self.lock:
-            active_sessions_count: int = redis_client.llen(ACTIVE_SESSIONS_KEY)
+            active_sessions_count = redis_client.llen(ACTIVE_SESSIONS_KEY)
             if active_sessions_count >= MAX_SESSIONS:
                 logging.info("Max sessions limit reached, no available sessions.")
                 return None

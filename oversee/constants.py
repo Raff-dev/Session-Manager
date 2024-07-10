@@ -2,7 +2,7 @@
 SESSION_CREATION_DELAY = 1.5
 SESSION_KEEP_ALIVE_DELAY = 60  # 1 minute
 WORKER_JOB_DURATION = 10
-WORKER_CREATION_DELAY = 1  # 1 second delay between creating workers
+WORKER_CREATION_DELAY = 0.1  # 1 second delay between creating workers
 NUMBER_OF_WORKERS = 10
 
 # Redis constants

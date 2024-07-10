@@ -7,7 +7,7 @@ services:
   session_manager:
     build:
       context: .
-    command: poetry run gunicorn -w 4 -b 0.0.0.0:5000 oversee.session_manager:app
+    command: poetry run gunicorn -w 1 -b 0.0.0.0:5000 oversee.session_manager:app
     volumes:
       - .:/app
     ports:

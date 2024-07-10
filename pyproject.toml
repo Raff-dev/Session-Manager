@@ -11,6 +11,7 @@ redis = "^5.0.7"
 celery = "^5.4.0"
 flask = "^3.0.3"
 gunicorn = "^22.0.0"
+redlock-py = "^1.0.8"
 
 
 [build-system]

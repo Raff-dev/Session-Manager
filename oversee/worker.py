@@ -17,9 +17,29 @@ app.config_from_object("oversee.celeryconfig")
 
 
 @app.task
-def worker_task():
-    session = SessionManagerClient.get_session()
-    logging.info("Worker using %s", session)
-    time.sleep(WORKER_JOB_DURATION)  # Simulate job duration
-    SessionManagerClient.release_session(session)
-    logging.info("Worker releasing %s", session)
+def worker_task() -> None:
+    while True:
+        try:
+            session: str | None = SessionManagerClient.get_session()
+            if session:
+                logging.info("Worker using %s", session)
+                time.sleep(WORKER_JOB_DURATION)  # Simulate job duration
+                SessionManagerClient.release_session(session)
+                logging.info("Worker releasing %s", session)
+                break
+
+            logging.info("No available sessions, retrying in 1 second.")
+            time.sleep(1)
+        except Exception as e:
+            logging.error("Error in worker task: %s", e)
+            time.sleep(1)
+
+
+def main() -> None:
+    # Start workers
+    for _ in range(10):
+        worker_task.delay()
+
+
+if __name__ == "__main__":
+    main()

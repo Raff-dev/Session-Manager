@@ -8,7 +8,7 @@ from oversee.constants import SESSION_MANAGER_TIMEOUT, SESSION_MANAGER_URL
 class SessionManagerClient:
 
     @staticmethod
-    def get_session():
+    def get_session() -> str:
         logging.info("Requesting a new session")
         response = requests.get(
             f"{SESSION_MANAGER_URL}/get_session", timeout=SESSION_MANAGER_TIMEOUT
@@ -19,7 +19,7 @@ class SessionManagerClient:
         return session
 
     @staticmethod
-    def release_session(session):
+    def release_session(session: str) -> None:
         logging.info("Releasing session %s", session)
         response = requests.post(
             f"{SESSION_MANAGER_URL}/release_session",
